@@ -1,0 +1,47 @@
+---
+import LaunchDetails from '../../components/LaunchDetails.astro'
+import Layout from '../../layouts/Layout.astro'
+import { getLaunchById } from '../../services/data/get-launch-by-id'
+import { getLaunches } from '../../services/data/get-launches'
+
+const { id } = Astro.params
+
+if (!id) {
+	return {
+		status: 400,
+		body: {
+			error: 'Missing required parameter "id"'
+		}
+	}
+}
+const response = await getLaunchById(id)
+
+const launch = {
+	id: response.id,
+	name: response.name,
+	date_utc: response.date_utc,
+	details: response.details,
+	links: {
+		patch: {
+			large: response.links.patch.large
+		},
+		article: response.links.article
+	},
+	success: response.success,
+	rocket: {
+		details: response.details,
+		payload_capacity: 50
+	}
+}
+
+console.log(launch)
+
+export async function getStaticPaths() {
+	const launches = await getLaunches()
+	return launches.map(launch => ({ params: { id: launch.id } }))
+}
+---
+
+<Layout title={`Launch Details: ${launch.name}`}>
+	<LaunchDetails launch={launch} />
+</Layout>

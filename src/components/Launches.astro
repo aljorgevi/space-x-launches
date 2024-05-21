@@ -1,0 +1,22 @@
+---
+import { getLaunches } from '../services/data/get-launches'
+import { type SpaceXAPI } from '../types'
+import Card from './Card.astro'
+
+const launches = await getLaunches()
+---
+
+<div class='grid gap-8 sm:grid-cols2 lg:grid-cols-3 xl:grid-cols-4'>
+	{
+		launches.map(launch => (
+			<Card
+				name={launch.name}
+				id={launch.id}
+				img={launch.links.patch.small}
+				details={launch.details}
+				flightNumber={launch.flight_number}
+				success={launch.success}
+			/>
+		))
+	}
+</div>
