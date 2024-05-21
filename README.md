@@ -2,7 +2,7 @@
 
 <div align="center">
 <a href="https://space-x-launches/">
-<img src="./public/space_x_launches.png">
+<img src="./public/space_x_launches.webp">
 </a>
 <p></p>
 </div>
