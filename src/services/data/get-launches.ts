@@ -4,7 +4,7 @@ interface Props {
 	limit?: number
 }
 
-export async function getLaunches({ limit = 1000 }: Props = {}) {
+export async function getLaunches({ limit = 12 }: Props = {}) {
 	try {
 		const res = await fetch('https://api.spacexdata.com/v5/launches/query', {
 			method: 'POST',
